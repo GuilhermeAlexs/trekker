@@ -7,18 +7,24 @@ import com.trekker.service.MapService;
 import com.trekker.service.MapService.LocalBinder;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 public class MainActivity extends Activity implements ChangeLocationListener, OnClickListener{
 	public static final int PLACE_BEGIN = R.drawable.begin;
@@ -29,13 +35,19 @@ public class MainActivity extends Activity implements ChangeLocationListener, On
 	private MapService mapService;
 	private boolean mBound = false;
 	private ImageView newLocBtn;
+	private LayoutInflater inflater;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-	    this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		setContentView(R.layout.activity_main);
+		
+		inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		//ListView markersList = (ListView) inflater.inflate(R.layout.markers_list, null).findViewById(R.id.markers_listview);
+
+        
 		mapView = (BlackMapView)findViewById(R.id.mapView);
 		newLocBtn = (ImageView)findViewById(R.id.placeBtn);
 		newLocBtn.setClickable(true);
@@ -92,14 +104,44 @@ public class MainActivity extends Activity implements ChangeLocationListener, On
 	public void onClick(View v) {
 		switch(v.getId()){
 			case R.id.placeBtn:
-				if(!mapService.isMapping()){
-					mapService.startMapping();
-					mapView.addMarker(mapService.getLocation(), PLACE_BEGIN);
-				}else{
-					mapService.stopMapping();
-					mapView.addMarker(mapService.getLocation(), PLACE_FINISH);
-				}
-				break;
+//				if(!mapService.isMapping()){
+//					mapService.startMapping();
+//					mapView.addMarker(mapService.getLocation(), PLACE_BEGIN);
+//				}else{
+//					mapService.stopMapping();
+//					mapView.addMarker(mapService.getLocation(), PLACE_FINISH);
+//				}
+//				break;
+				showMarkersOptionsDialog();
 		}
+	}
+	
+	public void showMarkersOptionsDialog() {
+		String[] values = new String[] {"food", "landscape"};
+		
+		MarkerOptionsAdapter adapter = new MarkerOptionsAdapter(this, values);
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+		builder.setTitle("Choose the type of Marker");
+        builder.setAdapter(adapter, null)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+
+        AlertDialog alertDialog = builder.create();
+        ListView markersList = alertDialog.getListView();
+        markersList.setAdapter(adapter);
+        markersList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        markersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {	
+			}
+        });
+        alertDialog.show();
 	}
 }

@@ -29,54 +29,71 @@
 	    android:layout_height="match_parent" 
 	    android:layout_below="@id/titleSeparator"/>
     
-    <LinearLayout
-        android:id="@+id/toolsPanel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:background="#000000"
-        android:layout_alignParentBottom="true" >
+<!--     <LinearLayout -->
+<!--         android:id="@+id/toolsPanel" -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:paddingTop="10dp" -->
+<!--         android:background="#000000" -->
+<!--         android:layout_alignParentBottom="true" > -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/placeBtn" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_marginRight="10dp" -->
+<!--             android:src="@drawable/location" /> -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/cameraBtn" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_marginRight="14dp" -->
+<!--             android:src="@drawable/camera" /> -->
+
+<!--         <ImageView -->
+<!--             android:id="@+id/infoBtn" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_marginRight="10dp" -->
+<!--             android:src="@drawable/info" /> -->
+
+<!--         <LinearLayout -->
+<!--             android:layout_width="match_parent" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:layout_marginBottom="10dp" -->
+<!--             android:gravity="right" > -->
+
+<!--             <ImageView -->
+<!--                 android:id="@+id/saveBtn" -->
+<!--                 android:layout_width="wrap_content" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:src="@drawable/disk" /> -->
+
+<!--             <ImageView -->
+<!--                 android:id="@+id/loadBtn" -->
+<!--                 android:layout_width="wrap_content" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_marginLeft="10dp" -->
+<!--                 android:src="@drawable/folder_open" /> -->
+<!--         </LinearLayout> -->
+<!--     </LinearLayout> -->
+
+		<EditText
+            android:layout_alignParentBottom="true"
+            android:layout_height="52dp"
+            android:layout_width="fill_parent"
+            android:background="#000000" />
 
         <ImageView
             android:id="@+id/placeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/location" />
-
-        <ImageView
-            android:id="@+id/cameraBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="14dp"
-            android:src="@drawable/camera" />
-
-        <ImageView
-            android:id="@+id/infoBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/info" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
-            android:gravity="right" >
-
-            <ImageView
-                android:id="@+id/saveBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/disk" />
-
-            <ImageView
-                android:id="@+id/loadBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/folder_open" />
-        </LinearLayout>
-    </LinearLayout>
+            android:src="@drawable/location" />
+        
+        
 
 </RelativeLayout>
