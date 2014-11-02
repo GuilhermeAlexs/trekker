@@ -16,6 +16,9 @@ import com.nutiteq.geometry.Line;
 import com.nutiteq.geometry.Marker;
 import com.nutiteq.projections.EPSG3857;
 import com.nutiteq.projections.Projection;
+import com.nutiteq.rasterdatasources.PackagedRasterDataSource;
+import com.nutiteq.rasterdatasources.RasterDataSource;
+import com.nutiteq.rasterlayers.RasterLayer;
 import com.nutiteq.style.LineStyle;
 import com.nutiteq.style.MarkerStyle;
 import com.nutiteq.utils.UnscaledBitmapLoader;
@@ -36,14 +39,21 @@ public class BlackMapView extends MapView{
         this.markerLayer = new MarkerLayer(proj);
 
         Components c = new Components();
-        c.options.setBackgroundPlaneColor(com.nutiteq.components.Color.BLACK);
-        c.options.setBackgroundPlaneOverlayColor(com.nutiteq.components.Color.BLACK);
-        c.options.setClearColor(com.nutiteq.components.Color.BLACK);
+//        c.options.setBackgroundPlaneColor(com.nutiteq.components.Color.BLACK);
+//        c.options.setBackgroundPlaneOverlayColor(com.nutiteq.components.Color.BLACK);
+//        c.options.setClearColor(com.nutiteq.components.Color.BLACK);
 
         setComponents(c);
 
-        getLayers().setBaseLayer(this.geometryLayer);
+        RasterDataSource dataSource = new PackagedRasterDataSource(proj, 12,12, "t{zoom}_{x}_{y}", this.getContext().getApplicationContext());
+        RasterLayer packagedMapLayer = new RasterLayer(dataSource, 16);
+        
+        getLayers().setBaseLayer(packagedMapLayer);
+        getLayers().addLayer(this.geometryLayer);
         getLayers().addLayer(this.markerLayer);
+        MapPos focusPoint = packagedMapLayer.getProjection().fromWgs84(-47.7162, -15.6300);
+        setFocusPoint(focusPoint);
+        setZoom(12);
 	}
 
 	public MarkerLayer getMarkerLayer() {
